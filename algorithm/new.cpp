@@ -11,6 +11,7 @@ int main() {
         if(i == 1) {
             std::cout << t1 << ", ";
             continue;
+            
         }
         if(i == 2) {
             std::cout << t2 << ", ";
