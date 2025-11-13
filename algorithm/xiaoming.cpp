@@ -1,42 +1,49 @@
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
 using namespace std;
+#define max 1000001
 
-struct Days
-{
-    long long b;   //单价
-    long long c;   //可交易数量
-};
 
-bool compare(const Days &day1,const Days& day2){
-    return day1.b>day2.b;
-}
+vector<long long>priceCount(max,0);  //priceCount[j]表示以价钱j卖掉了多少
+long long res=0;
+long long available=0;    //可卖股票数
+
 
 int main(){
     int n;
+    int a,b,c;
     cin>>n;
-    vector<Days>days(n);
-    long long sum=0;
+
     for(int i=0;i<n;i++){
-        int a,b,c;
         cin>>a>>b>>c;
-        sum+=a;
-        days[i].b=b;
-        days[i].c=c;
+        available+=a;
+        if(available>=c)
+        {
+            priceCount[b]+=c;
+            available-=c;
+            res+=(b*c);
+        }else if(available<c){
+            long long regret=c-available;    //还需要补充多少股票
+            for(int j=1;j<b;j++){    //遍历所有比今天便宜的价钱
+                if(regret==0){
+                    break;
+                }
+                if(priceCount[j]>0){
+                    long long regret_amount=min(priceCount[j],regret);
+                    priceCount[j]-=regret_amount;
+                    priceCount[b]+=regret_amount;
+
+                    res-=(j*regret_amount);
+                    res+=(b*regret_amount);
+
+                    regret-=regret_amount;
+                }
+            }
+            priceCount[b]+=available;
+            res+=(b*available);
+            available=0;
+        }
+
     }
-
-    sort(days.begin(),days.end(),compare);
-
-    long long res=0;
-    long long remain=sum;
-
-    for(const auto &day:days){
-        if(remain<=0)   break;
-        long long take=min(remain,day.c);   //当天卖了多少
-        res+=take*day.b;
-        remain-=take;
-    }
-
     cout<<res<<endl;
-
     return 0;
 }
