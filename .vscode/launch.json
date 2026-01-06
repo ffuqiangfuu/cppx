@@ -1,49 +1,31 @@
 {
   "version": "0.2.0",
   "configurations": [
-    {
-      "name": "(gdb) 启动",
-      "type": "cppdbg",
-      "request": "launch",
-      "program": "${fileDirname}\\program.exe",
-      "args": [],
-      "stopAtEntry": false,
-      "cwd": "${fileDirname}",
-      "environment": [],
-      "externalConsole": false,
-      "MIMode": "gdb",
-      "miDebuggerPath": "D:\\DevelopTool\\msys64\\ucrt64\\bin\\gdb.exe",
-      "setupCommands": [
-        {
-          "description": "为 gdb 启用整齐打印",
-          "text": "-enable-pretty-printing",
-          "ignoreFailures": true
-        },
-        {
-          "description": "将反汇编风格设置为 Intel",
-          "text": "-gdb-set disassembly-flavor intel",
-          "ignoreFailures": true
-        }
-      ]
-    },
-    {
-      "name": "C/C++ Runner: Debug Session",
-      "type": "cppdbg",
-      "request": "launch",
-      "args": [],
-      "stopAtEntry": false,
-      "externalConsole": true,
-      "cwd": "d:/DevelopProject/cpp/algorithm",
-      "program": "d:/DevelopProject/cpp/algorithm/build/Debug/outDebug",
-      "MIMode": "gdb",
-      "miDebuggerPath": "gdb",
-      "setupCommands": [
-        {
-          "description": "Enable pretty-printing for gdb",
-          "text": "-enable-pretty-printing",
-          "ignoreFailures": true
-        }
-      ]
-    }
+      {
+          "name": "Debug My C++",
+          "type": "cppdbg",
+          "request": "launch",
+          "program": "${fileDirname}\\${fileBasenameNoExtension}.exe",
+          "args": [],
+          "stopAtEntry": false,
+          "cwd": "${fileDirname}",
+          "environment": [
+              {
+                  "name": "PATH",
+                  "value": "D:\\DevelopTool\\msys64\\ucrt64\\bin;${env:PATH}"
+              }
+          ],
+          "externalConsole": false,
+          "MIMode": "gdb",
+          "miDebuggerPath": "D:\\DevelopTool\\msys64\\ucrt64\\bin\\gdb.exe",
+          "preLaunchTask": "Run My C++",
+          "setupCommands": [
+              {
+                  "description": "Enable pretty-printing for gdb",
+                  "text": "-enable-pretty-printing",
+                  "ignoreFailures": true
+              }
+          ]
+      }
   ]
 }
