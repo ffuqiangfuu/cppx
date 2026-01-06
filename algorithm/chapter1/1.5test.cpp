@@ -11,7 +11,7 @@ bool isSame(int x,int d){
             }
             tmp=tmp/10;     //除10准备取下一位
         }
-        tmp1=tmp1/10;   //除10准备取下一位
+        x=x/10;   //除10准备取下一位
     }
     return false;
 }
@@ -22,12 +22,14 @@ int main(){
     int ans=0;
     cin>>x;
     for(int i=1;i*i<=x;i++){
-        int fab1=i;
-        int fab2=x/i;
-        if(isSame(x,fab1)){
-            ans++;
+        if(x%i==0){
+            int fab1=i;
+            int fab2=x/i;
+            if(isSame(x,fab1)){
+                ans++;
+            }
+            if(fab1!=fab2&&isSame(x,fab2))    ans++;    //如果两个因子是同一个数就不需要重复加，如果两个数不相同我们才考虑另一个因素，如果两个因素相同则不用考虑。
         }
-
     }
     cout<<ans<<endl;
     return 0;
